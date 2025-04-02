@@ -9,17 +9,19 @@ def mostrar_menu():
     print("1. Leer receta")
     print("2. Añadir receta")
     print("3. Añadir categoría")
-    print("4. Eliminar recetas")
-    print("5. Salir")
+    print("4. Eliminar receta")
+    print("5. Eliminar categoría")
+    print("6. Salir")
     option = int(input("¿Qué quieres hacer?\n"))
 
-    if(option < 1 or option > 5):
+    if(option < 1 or option > 6):
         print("Opción no válida. Por favor, elige una opción entre 1 y 4.")
         return mostrar_menu()
-    elif(option == 1 or option == 2 or option == 4):
-        mostrar_capeta_archivo(option)
     elif(option == 3):
         crear_categoria()
+    elif(option != 6):
+        mostrar_capeta_archivo(option)
+
     return option
 
 def crear_categoria():
@@ -43,9 +45,19 @@ def mostrar_capeta_archivo(option):
     else:
         if(option == 2):
             agregar_receta(cat)
+        elif(option == 5):
+            eliminar_categoria(cat)
         else:
             mostrar_eliminar_recetas(cat, option)
 
+def eliminar_categoria(cat):
+    archive = actual_path.joinpath(cat)
+    if any(archive.iterdir()):
+        print("La categoría no está vacía. Elimina las recetas primero.")
+    else:
+        archive.rmdir()
+        print(f"Categoría '{cat}' eliminada con éxito.")
+    return mostrar_menu()
 
 def agregar_receta(cat):
     new_path = actual_path.joinpath(cat)
@@ -80,5 +92,5 @@ def leer_receta(cat, receta):
     print(archive.read_text())
 
 options_loop = 0
-while options_loop != 5:
+while options_loop != 6:
     options_loop = mostrar_menu()
