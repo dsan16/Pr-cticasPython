@@ -108,11 +108,10 @@ def pedir_cosas():
                 texto_a_audio(resultado)
             except wikipedia.exceptions.DisambiguationError as e:
                 texto_a_audio("Ese término es muy amplio. Por favor, sé más específico.")
-                print("Opciones:", e.options)
             except wikipedia.exceptions.PageError:
                 texto_a_audio("No encontré ninguna página con ese término.")
             except wikipedia.exceptions.WikipediaException as e:
-                texto_a_audio("Ha ocurrido un error al buscar en Wikipedia.")
+                texto_a_audio("Especifíca que es lo que quieres buscar en wikipedia.")
                 print("Error:", e)
             except Exception as e:
                 texto_a_audio("Error inesperado al buscar.")
